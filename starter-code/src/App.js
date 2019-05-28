@@ -1,27 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import foods from './data/foods.json'
 import FoodList from './components/FoodList';
 import 'bulma/css/bulma.css';
-import SearchBar from './components/SearchBar';
+import AddFood from './components/AddFood';
 
 class App extends Component {
+
+  state = {
+    completeFoodList : [...foods]
+  }
+
+  handleNewFood = (a,b,c) => {
+    this.setState({
+      completeFoodList:[{a,b,c} ,...this.state.completeFoodList]
+    })
+  }
   render() {
+
     return (
       <div className="App">
-          <div>
-            <SearchBar />
-          </div>
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p> */}
+        <div className='container'>
+          <h1>IronNutrition</h1>
+        </div>
         <div>
-          <FoodList foods={foods} />
+          <AddFood onNewFood={this.props.handleNewFood} />
+        </div>
+        <div>
+          <FoodList foodList={this.state.completeFoodList} />
         </div>
       </div>
     );
